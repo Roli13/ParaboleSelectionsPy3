@@ -1,0 +1,27 @@
+firstly, the content of the input data file is stored in line-wise manner in a list.
+the lines are then checked if they contain the phrase 'is a' or 'is an' or 'is' or 'has' or 'had' etc.
+such lines are then stored as triplets containing the portion before that phrase, that phrase, and the one after the phrase.
+
+the before and after portions of the phrase are now concluded to equal as they are held by a is-a relationship 
+so now,these before and after words can be replaced in the other lines(the ones which do not have is-a relationship).
+after replacement in the other lines, we will compare the lines having same end phrase.
+lets take an example:
+  sun is a star.
+  planet revolves around star.
+  earth revolve around sun.
+  so now, sun=star
+  the first replacement in the second sentence will be : planet revolve around sun
+  now we will compare the modified second sentence and the third sentence.
+  both the sentences have same end phrase : revolve around sun
+  now we can that, earth is planet.
+so now we will get a new 'is-a' relationship, which we will break into triplet: portion before 'is-a', the phrase 'is-a', and the portion after 'is-a'.
+and write this new triplet to the output data file alongwith the triplets which were made from the sentences of the input data file.
+
+now we are having various variations like the sentences are having 'has', 'had', or some other verb as a relationship in place of 'is-a' relationship
+and also the words in the sentences or the nouns are not single words.
+so my approach for this is to use regular expressions by the following method:
+we'll firstly search for a relationship in the sentences which is of the form 'is-a' or 'has' or some other relation which can be converted to the equality form.
+then the two portions of the sentences in which that regex will be found, will be going to replace the similar word/s found in the sentences.
+then those replaced sentences are checked to have a similiar relationship or that regex.
+then again they are going to be checked to be having a 'is-a' type or that 'regex' type relationship and if found, they are converted to triplets and appendeed to the ouput file.
+so this the algorithm for which worked for some of the cases and this is also the roadmap to rest of them.
